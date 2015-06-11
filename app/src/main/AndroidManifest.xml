@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.himotech.adobephotosdk">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:overrideLibrary="com.adobe.creativesdk.foundation.auth"
+        android:hardwareAccelerated="true"
+android:name=".PhotoApp"
+        >
+        <activity
+            android:name=".PhotoActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Main Editor Activity -->
+        <activity
+            android:name="com.aviary.android.feather.sdk.FeatherActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="unspecified"
+            android:hardwareAccelerated="true"
+            android:largeHeap="true"
+            android:process=":aviarysdk"
+            android:theme="@style/AviaryTheme.Dark"
+            tools:replace="process,theme"
+
+            />
+
+        <!--
+        Cds Content Provider,
+        NOTE that the "authorities" value MUST be formatted in this way:
+        android:authorities="{your.packagename}.AviaryCdsProvider"
+     -->
+        <!--
+             Required by the CreativeSDKImage
+             The "android:authorities" property MUST follow the following rule:
+                 {your_app_package_name}.AviaryCdsProvider
+         -->
+        <provider
+            android:name="com.aviary.android.feather.sdk.internal.cds.AviaryCdsProvider"
+            android:authorities="com.himotech.adobephotosdk.AviaryCdsProvider"
+            android:process=":aviarycds"
+            tools:replace="process"
+
+            android:exported="false" />
+
+    </application>
+
+</manifest>
